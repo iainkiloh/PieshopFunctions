@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using PieshopFunctions.Contract;
 using PieshopFunctions.Model;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace PieshopFunctions
@@ -22,6 +23,8 @@ namespace PieshopFunctions
         }
 
         [FunctionName("GetAllPies")]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(List<PieContract>))]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "v1/getallpies")] HttpRequest req, ILogger log)
         {
@@ -45,6 +48,7 @@ namespace PieshopFunctions
             return new OkObjectResult(response);
 
         }
+
     }
 }
 
